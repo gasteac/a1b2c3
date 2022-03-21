@@ -1,0 +1,10 @@
+.titulo{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    font-size: 30px;
+}
+
+.titulo h1{
+    color: black;
+}
