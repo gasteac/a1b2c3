@@ -129,7 +129,7 @@ const Form = ({listaPa, setListaPa}) => {
         <input
         type="submit"
         value="Agregar mascotita"
-        className='border-2 
+        className='
         w-full mt-1 
         rounded-md 
         placeholder-gray-500 
