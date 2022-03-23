@@ -43,7 +43,7 @@ const Form = ({listaPa, setListaPa, paciente, setPaciente}) => {
       setOkey(false)
     } else {
       setError(false)
-      setOkey(true)}
+      setOkey(true)
       //guardo los valores en la funcion q viene desde app.js
 
       //objeto de paciente
@@ -80,7 +80,7 @@ const Form = ({listaPa, setListaPa, paciente, setPaciente}) => {
       setSintomas('')
 
       
-
+    }
   }
 
   
