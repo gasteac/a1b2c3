@@ -2,7 +2,7 @@ import React from 'react';
 import './Pacientes.css';
 import Paciente from './Paciente';
 
-const Paci = ({listaPa}) => {
+const Paci = ({listaPa, setPaciente, eliminarPa}) => {
   return (
     <>
       <div className='md:w-1/2 lg:w-3/5'>
@@ -17,7 +17,10 @@ const Paci = ({listaPa}) => {
         {listaPa.map((p)=>(
           <Paciente 
           key={p.id}
-          paciente={p}/>
+          paciente={p}
+          setPaciente={setPaciente}
+          eliminarPa={eliminarPa}
+          />
         ))}
         </div>
         </>

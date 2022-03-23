@@ -1,8 +1,8 @@
 import React from 'react';
 import './Form.css';
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
-const Form = ({listaPa, setListaPa}) => {
+const Form = ({listaPa, setListaPa, paciente, setPaciente}) => {
   const [nombre, setNombre] = useState('');
   const [propietario, setPropietario] = useState('');
   const [email, setEmail] = useState('');
@@ -10,12 +10,30 @@ const Form = ({listaPa, setListaPa}) => {
   const [sintomas, setSintomas] = useState('');
   const [error, setError] = useState(false);
   const [okey, setOkey] = useState(false);
-  
+
+  useEffect(()=>{
+    if (Object.keys(paciente).length > 0){
+      setNombre(paciente.nombre)
+      setPropietario(paciente.propietario)
+      setEmail(paciente.email)
+      setFecha(paciente.fecha)
+      setSintomas(paciente.sintomas)
+      setError(false)
+      setOkey(false)}
+  },[paciente])
+
+
   const generarID=()=>{
     const random = Math.random().toString(36).substr(2);
     const fecha = Date.now().toString(36)
     return random + fecha
+    
   }
+
+
+  
+
+
 
   const handleSubmit =(e)=>{
     e.preventDefault();
@@ -25,14 +43,9 @@ const Form = ({listaPa, setListaPa}) => {
       setOkey(false)
     } else {
       setError(false)
-      setOkey(true)
-      //vuelvo a 0 todos los campos
-      setNombre('')
-      setPropietario('')
-      setEmail('')
-      setFecha('')
-      setSintomas('')
+      setOkey(true)}
       //guardo los valores en la funcion q viene desde app.js
+
       //objeto de paciente
       const objetoPaciente = {
         nombre, 
@@ -40,11 +53,39 @@ const Form = ({listaPa, setListaPa}) => {
         email, 
         fecha, 
         sintomas,
-        id:generarID()
       }
-      setListaPa([...listaPa, objetoPaciente])
-    }
+
+
+      if (paciente.id) {
+
+        objetoPaciente.id = paciente.id
+        const listaAct = listaPa.map(element => element.id === paciente.id ? objetoPaciente : element)
+        setListaPa(listaAct)
+        setPaciente({})
+        
+
+      } else {
+
+        objetoPaciente.id = generarID();
+        setListaPa([...listaPa, objetoPaciente]);
+        setPaciente({})
+
+      }
+
+      //vuelvo a 0 todos los campos
+      setNombre('')
+      setPropietario('')
+      setEmail('')
+      setFecha('')
+      setSintomas('')
+
+      
+
   }
+
+  
+ 
+
 
   return (
     <div className='md:w-1/2 lg:w-2/5'>
@@ -54,8 +95,9 @@ const Form = ({listaPa, setListaPa}) => {
       <span className='text-indigo-600 font-bold'>administralos</span>
       </p>
       <form onSubmit={handleSubmit}
-      
         className='bg-white shadow-md rounded-xl py-5 px-5 m-5'>
+
+        
 
         {error && 
         <div className='text-center mb-4 bg-red-800 text-white p-2 rounded-md'>
@@ -68,6 +110,8 @@ const Form = ({listaPa, setListaPa}) => {
         <p className='mt-1'>Mascota agregada correctamente!</p>
         </div>
         }
+
+      
 
         <div className='mb-5'>
         <label htmlFor='mascota' className='block uppercase font-bold'>Nombre mascota</label>
@@ -128,9 +172,8 @@ const Form = ({listaPa, setListaPa}) => {
 
         <input
         type="submit"
-        value="Agregar mascotita"
-        className='
-        w-full mt-1 
+        value='Agregar / Editar'
+        className='w-full mt-1 
         rounded-md 
         placeholder-gray-500 
         bg-indigo-600 
