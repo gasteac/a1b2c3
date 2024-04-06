@@ -1,5 +1,4 @@
 import React from 'react';
-import './Pacientes.css';
 import Paciente from './Paciente';
 
 const Paci = ({listaPa, setPaciente, eliminarPa}) => {

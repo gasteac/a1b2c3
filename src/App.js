@@ -28,7 +28,7 @@ function App() {
   }
 
   return (
-    <div className='container mx-20 mt-10'>
+    <div className=' mx-20 mt-10'>
     <Header/>
     <div className='mt-12 md:flex  mb-10'>
     <Form 
